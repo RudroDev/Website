@@ -2,37 +2,37 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    /* Fallback color if image fails to load */
     background: #0f172a; 
     color: #ffffff;
     min-height: 100vh;
     position: relative;
+    overflow-x: hidden;
 }
 
-/* --- KEY CHANGES START HERE --- */
+/* --- BACKGROUND FIX --- */
 .image-background {
-    position: fixed; /* Locks the image in place */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures image covers screen without stretching distortion */
-    z-index: -1; /* Pushes the image BEHIND the text */
-    opacity: 0.6; /* Optional: dims image slightly so white text is readable */
+    object-fit: cover;
+    z-index: -1;
+    /* Changed from 0.6 to 0.3 to make it more "light weight" / faint */
+    opacity: 0.3; 
 }
-/* --- KEY CHANGES END HERE --- */
 
+/* --- NAVBAR --- */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 80px;
-    /* Optional: glassmorphism effect for nav */
-    /* backdrop-filter: blur(5px); */
+    padding: 20px 80px;
+    background: rgba(15, 23, 42, 0.8); /* Slight dark backing for readability */
 }
 
 .image {
@@ -52,18 +52,36 @@ body {
 .nav-links a {
     text-decoration: none;
     color: #cbd5e1;
-    transition: color 0.3s;
+    transition: all 0.3s ease;
     font-weight: 500;
+    position: relative;
 }
 
+/* Navbar Hover Animation */
 .nav-links a:hover {
     color: #22d3ee;
     text-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
 }
 
+.nav-links a::after {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #22d3ee;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* --- INTRO & SECTIONS --- */
 .intro {
     padding: 80px;
-    max-width: 700px; /* Increased slightly for better readability */
+    max-width: 800px;
+    animation: fadeIn 1.5s ease-in-out;
 }
 
 .intro h4 {
@@ -73,13 +91,14 @@ body {
 }
 
 .intro h1 {
-    font-size: 56px; /* Made slightly bigger */
+    font-size: 60px;
     margin-bottom: 15px;
     font-weight: 800;
+    color: #fff;
 }
 
 .intro h3 {
-    font-size: 24px;
+    font-size: 28px;
     margin-bottom: 20px;
     line-height: 1.4;
 }
@@ -89,32 +108,37 @@ body {
 }
 
 .intro p {
-    color: #e2e8f0;
+    color: #94a3b8;
     line-height: 1.6;
-    margin-bottom: 25px;
-    font-size: 16px;
+    margin-bottom: 30px;
+    font-size: 18px;
 }
 
+/* --- SOCIAL ICONS --- */
 .social-icons a {
-    display: inline-flex; /* Better for centering icons */
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border: 2px solid #22d3ee;
     color: #22d3ee;
     border-radius: 50%;
     margin-right: 15px;
-    transition: all 0.3s;
+    transition: all 0.4s ease;
     text-decoration: none;
+    font-size: 18px;
 }
 
+/* Icon Hover Animation */
 .social-icons a:hover {
     background: #22d3ee;
     color: #0f172a;
-    box-shadow: 0 0 15px #22d3ee;
+    box-shadow: 0 0 20px #22d3ee;
+    transform: translateY(-5px) rotate(360deg); /* Added rotation effect */
 }
 
+/* --- BUTTONS --- */
 .btn {
     display: inline-block;
     margin-top: 30px;
@@ -124,10 +148,210 @@ body {
     text-decoration: none;
     font-weight: bold;
     border-radius: 30px;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: all 0.3s ease;
+    border: 2px solid #22d3ee;
 }
 
+/* Button Hover Animation */
 .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(34, 211, 238, 0.6);
+    transform: translateY(-5px) scale(1.05); /* Lifts up and grows slightly */
+    box-shadow: 0 10px 25px rgba(34, 211, 238, 0.6);
+    background: transparent;
+    color: #22d3ee;
+}
+
+/* --- TEAM SECTION STYLES --- */
+.team-section {
+    padding: 60px 80px;
+    width: 100%;
+}
+
+.team-grid {
+    display: grid;
+    /* This forces exactly 3 columns in one row */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px;
+    justify-items: center;
+    margin-top: 40px;
+}
+
+.team-card {
+    background: rgba(30, 41, 59, 0.7);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid #334155;
+    transition: all 0.3s ease;
+    width: 100%; /* Spans the full width of the grid column */
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    border-color: #22d3ee;
+    box-shadow: 0 10px 30px rgba(34, 211, 238, 0.2);
+}
+
+.img-container {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    border: 3px solid #22d3ee;
+    overflow: hidden;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+/* If the screen is smaller than 900px, they will stack in a column again */
+@media (max-width: 900px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+    .team-section {
+        padding: 40px 20px;
+    }
+}
+/* --- TEAM SECTION STYLES --- */
+.team-section {
+    padding: 40px 80px;
+    width: 100%;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    justify-items: center;
+}
+
+.team-card {
+    background: rgba(30, 41, 59, 0.7);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid #334155;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 320px;
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    border-color: #22d3ee;
+    box-shadow: 0 10px 30px rgba(34, 211, 238, 0.2);
+}
+
+.img-container {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    border: 3px solid #22d3ee;
+    overflow: hidden;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-card h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.team-card .role {
+    color: #22d3ee;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.team-card .specialty {
+    color: #94a3b8;
+    font-size: 16px;
+}
+/* --- GRID FOR SERVICES & PORTFOLIO --- */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Add this to your style.css */
+.card {
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(34, 211, 238, 0.1),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.card:hover::before {
+    left: 100%;
+}
+.card {
+    background: rgba(30, 41, 59, 0.7);
+    padding: 30px;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    border: 1px solid #334155;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: #22d3ee;
+}
+
+.card i {
+    font-size: 40px;
+    color: #22d3ee;
+    margin-bottom: 15px;
+}
+
+.card h2 {
+    margin-bottom: 15px;
+}
+
+/* --- FORM STYLES --- */
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid #334155;
+    color: white;
+    border-radius: 5px;
+}
+
+.contact-form button {
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
